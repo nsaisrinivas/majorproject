@@ -14,7 +14,8 @@ const InstitutePage=()=>{
     const[filter,setfilter]=useState("");
     const history=useNavigate();
     const editinstitute=(id)=>{
-            history('/editinstitute/'+id);
+        {localStorage.getItem('admindata')?
+            history('/editinstitute/'+id):history('/admin/login')}
     }
     const deleteinstitute=(id)=>{
         InstituteService.deleterInstitute(id).then(res=>{
@@ -23,7 +24,8 @@ const InstitutePage=()=>{
         alert('institute deleted');
     }
     const addinstitute=()=>{
-        history('/addinstitute');
+        {localStorage.getItem('admindata')?
+        history('/addinstitute'):history('/admin/login')}
     }
     const searchfilter=(event)=>{
         setfilter(event.target.value);
@@ -50,6 +52,7 @@ const InstitutePage=()=>{
             <Link to='/availablecourse' className='instnav'>Courses</Link>
             <Link to='/student' className='instnav'>Students</Link>
         </div>
+        {localStorage.getItem('admindata')?
         <div className='instpage'>
         <div className='search'>
                 {/* <input className='searchtext' type="text" placeholder='Search Here' value={filter} onChange={searchfilter}></input> */}
@@ -84,7 +87,7 @@ const InstitutePage=()=>{
             </Link> */}
             <button className='button' onClick={addinstitute}><span>{'Add'} </span></button>
         </div>
-        </div>
+        </div>:history('/admin/login')}
         </div>
     )
 }

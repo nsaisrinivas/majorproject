@@ -1,7 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import './enrolledcourse.css';
 import StudentService from '../../admin/services/StudentService';
+import { useNavigate } from 'react-router-dom';
 const Enrolledcourse = () => {
+  const history=useNavigate();
   const[student,setstudent]=useState([]);
   useEffect(()=>{
     StudentService.getStudent().then((res)=>{
@@ -9,6 +11,7 @@ const Enrolledcourse = () => {
     });
 },[]);
     return (
+      <>{localStorage.getItem('usersdata')?
       <>
       {student.map((item)=>{
         return(
@@ -25,8 +28,9 @@ const Enrolledcourse = () => {
         )
       })}
       
+      </>:history('/user/login')}
       </>
     )
   }
   
-  export default Enrolledcourse
+  export default Enrolledcourse;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,Link} from 'react-router-dom';
 import { FaEdit , FaTrash } from 'react-icons/fa';
 import StudentService from "../services/StudentService";
 import '../Students/student.css';
@@ -7,7 +7,8 @@ const Student=()=>{
     const history=useNavigate();
     const[student,setstudent]=useState([]);
     const editstudent=(id)=>{
-        history('/editstudent/'+id);
+        {localStorage.getItem('admindata')?
+        history('/editstudent/'+id):history('/admin/login')}
     }
     const deletestudent=(id)=>{
         StudentService.deleteStudent(id).then(res=>{
@@ -16,7 +17,8 @@ const Student=()=>{
         alert('student Deleted');
     }
     const addstudent=()=>{
-        history('/enrollcourse');
+        {localStorage.getItem('admindata')?
+        history('/enrollcourse'):history('/admin/login')}
     }
     useEffect(()=>{
             StudentService.getStudent().then((res)=>{
@@ -24,7 +26,14 @@ const Student=()=>{
             });
     },[]);
     return(
+        <>
+        {localStorage.getItem('admindata')?
         <div className="table-container">
+        <div className='Navbar2'>
+            <Link to='/institutepage' className='instnav'>Institutes</Link>
+            <Link to='/availablecourse' className='instnav'>Courses</Link>
+            <Link to='/student' className='instnav'>Students</Link>
+        </div>
             <h1 className="heading">Student Details</h1>
             <table className="table">
                 <thead>
@@ -53,12 +62,10 @@ const Student=()=>{
                 </tbody>
             </table>
             <div className='button2'>
-            {/* <Link to="/addinstitute">
-            <Button className="link" BtnName={"Add"} id="f-addinst" />
-            </Link> */}
             <button className='button' onClick={addstudent}><span>{'Add'} </span></button>
-        </div>
-        </div>
+            </div>
+        </div>:history('/admin/login')}
+        </>
     );
 }
 export default Student;

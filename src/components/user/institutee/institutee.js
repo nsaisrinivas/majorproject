@@ -39,6 +39,7 @@ const InstitutePagee=()=>{
             <Link to='/user/institutepage' className='instnav'>Institutes</Link>
             <Link to='/user/enrolledcourse' className='instnav'>Enrolled Courses</Link>
         </div>
+        {localStorage.getItem('usersdata')?
         <div className='instpage'>
         <div className='search'>
                 <input className='searchtext' type="text" placeholder='Search Here' value={filter} onChange={searchfilter}></input>
@@ -63,7 +64,7 @@ const InstitutePagee=()=>{
             })}
             
         </section>
-        </div>
+        </div>:history('/user/login')}
         </div>
     )
 }

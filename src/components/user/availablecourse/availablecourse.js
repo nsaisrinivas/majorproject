@@ -10,8 +10,9 @@ const Availablecourse = () => {
     const [course,setcourse]=useState([]);
     const[filter,setfilter]=useState("");
     const enrolcourse=(id,cname)=>{
-        history("/user/enrollcourse/"+id);
-        localStorage.setItem('coursename',cname);
+        {localStorage.getItem('usersdata')?
+        history("/user/enrollcourse/"+id):history('/user/login')}
+        // localStorage.setItem('coursename',cname);
     }
     const searchfilter=(event)=>{
         setfilter(event.target.value);
@@ -23,6 +24,7 @@ const Availablecourse = () => {
         return(val.courseName.includes(filter))
     })
     return (
+        <>{localStorage.getItem('usersdata')?
         <div>
             <div className='Navbar2'>
             <Link to='/user/institutepage' className='instnav'>Institutes</Link>
@@ -54,7 +56,8 @@ const Availablecourse = () => {
             })}
         </section>
         </div>
-      </div>
+      </div>:history('/user/login')}
+      </>
     )
   }
   

@@ -20,11 +20,12 @@ const Availablecourses = () => {
         return(val.courseName.includes(filter))
     })
     const editcourse=(id,item)=>{
-        console.log(id);
-        history('/editcourse/'+id);
-        localStorage.setItem('coursedetails',JSON.stringify(item));
-        console.log(item);
-        EditCourse({course});
+        // console.log(id);
+        {localStorage.getItem('admindata')?
+        history('/editcourse/'+id):history('/admin/login');}
+        // localStorage.setItem('coursedetails',JSON.stringify(item));
+        // console.log(item);
+        // // EditCourse({course});
     }
     const deletecourse=(id)=>{
         CourseService.deleteCourse(id).then(res=>{
@@ -39,6 +40,7 @@ const Availablecourses = () => {
             <Link to='/availablecourse' className='instnav'>Courses</Link>
             <Link to='/student' className='instnav'>Students</Link>
         </div>
+        {localStorage.getItem('admindata')?
             <div className='instpage'>
             <div className='search'>
                 <input className='searchtext' type="text" placeholder='Search Here' value={filter} onChange={searchfilter}></input>
@@ -64,11 +66,15 @@ const Availablecourses = () => {
             })}
         </section>
         <div className='button2'>
+        {localStorage.getItem('admindata')?
             <Link to="/addcourse">
             <Button className="link" BtnName={"Add"} id="f-addinst" />
-            </Link>
+            </Link>:
+            <Link to="/admin/login">
+            <Button className="link" BtnName={"Add"} id="f-addinst" />
+            </Link>}
         </div>
-        </div>
+        </div>:history('/admin/login')}
       </div>
     )
   }

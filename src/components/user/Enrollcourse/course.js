@@ -73,6 +73,7 @@ const EnrollCourse = () => {
     e.preventDefault();
   };
   return (
+    <>{localStorage.getItem('usersdata')?
     <div className="main-container">
       <div className="course-container">
         <div className="form-header">
@@ -266,7 +267,8 @@ const EnrollCourse = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>:history('/user/login')}
+    </>
   );
 };
 

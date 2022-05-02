@@ -40,6 +40,7 @@ const AddCourse = () => {
     e.preventDefault();
   };
   return (
+    <>{localStorage.getItem('admindata')?
     <div className="main-container">
       <div className="signup-container">
         <div className="form-header">
@@ -98,7 +99,8 @@ const AddCourse = () => {
           </form>
         </div>
       </div>
-    </div>
+    </div>:history('/admin/login')}
+    </>
   );
 };
 
